@@ -70,7 +70,15 @@ money_text = Text.new("Money: #{$money}", x: 10, y: 40, size: 20, color: 'white'
 # Game over text
 $game_over_text = Text.new("Game Over", x: 250, y: 250, size: 30, color: 'white', opacity: 0, z: 4)
 
-# Function to toggle game over screen and restart the game
+
+# toggle_game_over(). Describes the function to toggle the game over screen and restart the game.
+# Parameters:
+# - health_bar: Rectangle representing the health bar.
+# - overhealth_bar: Rectangle representing the overhealth bar.
+# - projectiles: Array containing projectile objects.
+# - enemies: Array containing enemy objects.
+# - visible: Boolean indicating whether the game over screen should be visible.
+# Returns: None.
 def toggle_game_over(health_bar, overhealth_bar, projectiles, enemies, visible)
   alpha = visible ? 1 : 0
   $game_over_text.color = [1.0, 1.0, 1.0, alpha]
@@ -92,7 +100,11 @@ end
 
 
 
-# Function to move towards player
+# move_towards_player(). Describes the function to move an enemy towards the player.
+# Parameters:
+# - enemy: Hash representing the enemy object.
+# - player: Circle representing the player.
+# Returns: None.
 def move_towards_player(enemy, player)
   target_x = player.x + rand(100) - 50
   target_y = player.y + rand(100) - 50
@@ -102,7 +114,12 @@ def move_towards_player(enemy, player)
   enemy[:velocity_y] = 2 * Math.sin(angle)
 end
 
-# Function to shoot projectile
+# shoot_projectile(). Describes the function to shoot a projectile from the player.
+# Parameters:
+# - player: Circle representing the player.
+# - aim_width: Width of the aiming line.
+# - projectiles: Array containing projectile objects.
+# Returns: None.
 def shoot_projectile(player, aim_width, projectiles)
   angle = Math.atan2(Window.mouse_y - player.y, Window.mouse_x - player.x)
 
@@ -123,7 +140,11 @@ def shoot_projectile(player, aim_width, projectiles)
   projectiles << projectile
 end
 
-# Function to spawn enemy
+# spawn_enemy(). Describes the function to spawn an enemy.
+# Parameters:
+# - enemies: Array containing enemy objects.
+# - player: Circle representing the player.
+# Returns: None.
 def spawn_enemy(enemies, player)
   return if enemies.length >= 5  # Limit the number of enemies
 
@@ -159,25 +180,40 @@ def spawn_enemy(enemies, player)
 end
 
 
-# Function to destroy projectile
+# destroy_projectile(). Describes the function to destroy a projectile.
+# Parameters:
+# - projectile: Hash representing the projectile object.
+# - projectiles: Array containing projectile objects.
+# Returns: None.
 def destroy_projectile(projectile, projectiles)
   projectile[:circle].remove
   projectiles.delete(projectile)
 end
 
-# Function to destroy enemy
+# destroy_enemy(). Describes the function to destroy an enemy.
+# Parameters:
+# - enemy: Hash representing the enemy object.
+# - enemies: Array containing enemy objects.
+# Returns: None.
 def destroy_enemy(enemy, enemies)  # Add `enemies` as an argument
   enemy[:circle].remove
   enemies.delete(enemy)  # Remove enemy from the array
 end  
 
 
-# Function to update score
+# update_score(). Describes the function to update the score.
+# Parameters:
+# - points: Integer representing the points to be added to the score.
+# Returns: None.
 def update_score(points)
   $money += points
 end
 
-# Function to calculate distance between two points
+# distance(). Describes the function to calculate the distance between two points.
+# Parameters:
+# - x1, y1: Coordinates of the first point.
+# - x2, y2: Coordinates of the second point.
+# Returns: Float representing the distance between the two points.
 def distance(x1, y1, x2, y2)
   Math.sqrt((x2 - x1)**2 + (y2 - y1)**2)
 end
